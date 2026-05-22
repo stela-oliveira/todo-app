@@ -1,11 +1,26 @@
-import { useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useEffect, useState } from "react";
 import { SafeAreaView, StatusBar, View } from "react-native";
 import ItemsScreen from "../screens/ItemsScreen";
 import ListasScreen from "../screens/ListasScreen";
 
+const CHAVE = "listas";
+
 export default function App() {
   const [listas, setListas] = useState([]);
   const [listaSelecionada, setListaSelecionada] = useState(null);
+
+  useEffect(() => {
+    async function carregar() {
+      const dados = await AsyncStorage.getItem(CHAVE);
+      if (dados) setListas(JSON.parse(dados));
+    }
+    carregar();
+  }, []);
+
+  useEffect(() => {
+    AsyncStorage.setItem(CHAVE, JSON.stringify(listas));
+  }, [listas]);
 
   function handleCriarLista(nome) {
     const nova = { id: Date.now(), nome, itens: [] };
@@ -25,7 +40,7 @@ export default function App() {
     const atualizadas = listas.map((l) =>
       l.id === listaSelecionada.id
         ? { ...l, itens: [...l.itens, novoItem] }
-        : l,
+        : l
     );
     setListas(atualizadas);
     setListaSelecionada(atualizadas.find((l) => l.id === listaSelecionada.id));
@@ -35,7 +50,7 @@ export default function App() {
     const atualizadas = listas.map((l) =>
       l.id === listaSelecionada.id
         ? { ...l, itens: l.itens.filter((i) => i.id !== itemId) }
-        : l,
+        : l
     );
     setListas(atualizadas);
     setListaSelecionada(atualizadas.find((l) => l.id === listaSelecionada.id));
@@ -47,10 +62,10 @@ export default function App() {
         ? {
             ...l,
             itens: l.itens.map((i) =>
-              i.id === itemId ? { ...i, done: !i.done } : i,
+              i.id === itemId ? { ...i, done: !i.done } : i
             ),
           }
-        : l,
+        : l
     );
     setListas(atualizadas);
     setListaSelecionada(atualizadas.find((l) => l.id === listaSelecionada.id));
