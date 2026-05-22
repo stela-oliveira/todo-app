@@ -1,23 +1,24 @@
-# To-Do List App ✨
+# To-do List App ✨
 
-Um aplicativo de lista de tarefas simples e funcional desenvolvido com **React Native** e **Expo**. O projeto permite a criação de múltiplas listas e o gerenciamento de itens com status de conclusão.
+Aplicativo de lista de tarefas desenvolvido com React Native e Expo.
+As tarefas são salvas localmente com AsyncStorage e persistem ao fechar o app.
 
-## Como rodar o projeto
+## Como executar
 
-1. Clonar o repo
+**Pré-requisitos:** Node.js e Expo Go no celular (ou emulador)
 
-   ```bash
-   git clone https://github.com/stela-oliveira/todo-app
-   cd todo-app
-   ```
-2. Instalar as dependencies
+```bash
+# Instalar dependências
+npm install
 
-   ```bash
-   npm install
-   ```
+# Iniciar o projeto
+npx expo start
+```
 
-2. Rodar o App
+Escaneie o QR code com o Expo Go (Android) ou a câmera (iOS).
 
-   ```bash
-   npx expo start
-   ```
+## Funcionalidades
+
+- Criar e excluir listas
+- Adicionar, excluir e marcar itens como concluídos
+- Dados salvos localmente com AsyncStorage
